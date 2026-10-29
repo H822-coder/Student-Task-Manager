@@ -15,8 +15,11 @@ export default function HomePage() {
         <div className="mx-auto grid max-w-6xl items-center gap-12 px-4 py-16 sm:px-6 sm:py-20 lg:grid-cols-[1.1fr_0.9fr] lg:py-24">
           <div>
             <span className="inline-flex rounded-full border border-blue-100 bg-blue-50 px-3 py-1 text-sm font-semibold text-blue-700">A calmer way to study</span>
-            <h1 className="mt-6 max-w-2xl text-4xl font-bold leading-tight tracking-tight sm:text-5xl lg:text-6xl">
-              Your semester, <span className="text-blue-600">under control.</span>
+            <h1 className="mt-6 max-w-2xl text-4xl font-extrabold leading-tight tracking-tight text-slate-900 sm:text-5xl lg:text-6xl">
+              Your semester,{" "}
+              <span className="bg-gradient-to-r from-blue-600 to-indigo-600 bg-clip-text text-transparent">
+                under control.
+              </span>
             </h1>
             <p className="mt-5 max-w-xl text-base leading-7 text-slate-600 sm:text-lg">
               Organize your tasks, stay aware of deadlines, and make progress one step at a time.
@@ -56,8 +59,7 @@ export default function HomePage() {
         <div className="mx-auto max-w-6xl px-4 py-14 sm:px-6 sm:py-16">
           <div className="max-w-2xl"><p className="text-sm font-bold uppercase tracking-wider text-blue-700">Designed for students</p><h2 className="mt-3 text-3xl font-bold tracking-tight sm:text-4xl">Less juggling. More learning.</h2><p className="mt-3 leading-7 text-slate-600">A simple starting point for keeping your academic life organized.</p></div>
           <div className="mt-8 grid gap-4 md:grid-cols-3">
-            {features.map((feature) => <article key={feature.number} className="rounded-2xl border border-slate-200 p-6 transition hover:-translate-y-1 hover:shadow-md"><p className="text-sm font-bold text-blue-600">{feature.number}</p><h3 className="mt-4 text-lg font-bold">{feature.title}</h3><p className="mt-2 text-sm leading-6 text-slate-600">{feature.description}</p></article>)}
-          </div>
+            {features.map((feature) => <article key={feature.number} className="rounded-2xl border border-slate-200 bg-white p-6 transition duration-300 hover:-translate-y-1 hover:border-blue-200 hover:shadow-lg hover:shadow-blue-100/50"><p className="text-sm font-bold text-blue-600">{feature.number}</p><h3 className="mt-4 text-lg font-bold">{feature.title}</h3><p className="mt-2 text-sm leading-6 text-slate-600">{feature.description}</p></article>)}          </div>
         </div>
       </section>
     </div>
