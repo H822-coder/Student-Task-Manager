@@ -1,7 +1,38 @@
 import { Link } from "react-router-dom";
 
 export default function LoginPage() {
-  return (
+  return (  
+    
+     const [email, setEmail] = useState("");
+     const [password, setPassword] = useState("");
+     const [errors, setErrors] = useState<Record<string, string>>({});
+     const [message, setMessage] = useState("");
+
+     function handleSubmit(event: FormEvent<HTMLFormElement>) {
+       event.preventDefault();
+
+     const newErrors: Record<string, string> = {};
+
+     if (!email.trim()) {
+       newErrors.email = "Email address is required.";
+     } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email.trim())) {
+       newErrors.email = "Please enter a valid email address.";
+     }
+
+     if (!password) {
+       newErrors.password = "Password is required.";
+     }
+
+     setErrors(newErrors);
+     setMessage("");
+
+     if (Object.keys(newErrors).length === 0) {
+       setMessage(
+          "Input validation successful. Connect the authentication API to log in."
+       );
+      }
+    }
+
     <section className="mx-auto grid min-h-[65vh] max-w-6xl items-center gap-10 px-4 py-12 sm:px-6 lg:grid-cols-2 lg:py-16">
       <div className="hidden rounded-3xl bg-slate-900 p-10 text-white lg:block">
         <p className="text-sm font-semibold uppercase tracking-widest text-blue-300">Welcome back</p>
@@ -14,10 +45,10 @@ export default function LoginPage() {
         <p className="text-sm font-semibold text-blue-700">YOUR WORKSPACE</p>
         <h2 className="mt-2 text-3xl font-bold tracking-tight">Log in to your account</h2>
         <p className="mt-2 text-slate-600">Enter your credentials to continue.</p>
-        <form className="mt-8 space-y-5">
-          <div><label htmlFor="login-email" className="mb-2 block text-sm font-medium text-slate-700">Email address</label><input id="login-email" name="email" type="email" autoComplete="email" placeholder="you@example.com" className="w-full rounded-xl border border-slate-300 bg-white px-4 py-3 outline-none transition placeholder:text-slate-400 focus:border-blue-500 focus:ring-4 focus:ring-blue-100" /></div>
-          <div><label htmlFor="login-password" className="mb-2 block text-sm font-medium text-slate-700">Password</label><input id="login-password" name="password" type="password" autoComplete="current-password" placeholder="Enter your password" className="w-full rounded-xl border border-slate-300 bg-white px-4 py-3 outline-none transition placeholder:text-slate-400 focus:border-blue-500 focus:ring-4 focus:ring-blue-100" /></div>
-          <button type="button" className="w-full rounded-xl bg-blue-600 px-5 py-3 font-semibold text-white transition hover:bg-blue-700">Log in</button>
+        <form className="mt-8 space-y-5" onSubmit={handleSubmit} noValidate>
+          <div><label htmlFor="login-email" className="mb-2 block text-sm font-medium text-slate-700">Email address</label><input id="login-email" name="email" type="email" autoComplete="email" placeholder="you@example.com" value={email} onChange={(e) => { setEmail(e.target.value); setErrors((prev) => ({ ...prev, email: "" })); setMessage(""); }} aria-invalid={Boolean(errors.email)} className="w-full rounded-xl border border-slate-300 bg-white px-4 py-3 outline-none transition placeholder:text-slate-400 focus:border-blue-500 focus:ring-4 focus:ring-blue-100" /> {errors.email && <p className="mt-2 text-sm text-red-600">{errors.email}</p>} </div>
+          <div><label htmlFor="login-password" className="mb-2 block text-sm font-medium text-slate-700">Password</label><input id="login-password" name="password" type="password" autoComplete="current-password" placeholder="Enter your password" value={password} onChange={(e) => { setPassword(e.target.value); setErrors((prev) => ({ ...prev, password: "" })); setMessage(""); }} aria-invalid={Boolean(errors.password)} className="w-full rounded-xl border border-slate-300 bg-white px-4 py-3 outline-none transition placeholder:text-slate-400 focus:border-blue-500 focus:ring-4 focus:ring-blue-100" /> {errors.password && <p className="mt-2 text-sm text-red-600">{errors.password}</p>} </div>
+          <button type="submit" className="w-full rounded-xl bg-blue-600 px-5 py-3 font-semibold text-white transition hover:bg-blue-700">Log in</button>{message && <p className="rounded-xl bg-green-50 p-3 text-sm text-green-800" role="status">{message}</p>}
           <p className="text-xs leading-5 text-slate-500">Authentication, invalid-credential messages, and protected routes are handled in the implementation task.</p>
         </form>
         <p className="mt-6 text-center text-sm text-slate-600">New here? <Link to="/register" className="font-semibold text-blue-700 hover:text-blue-800">Create an account</Link></p>
